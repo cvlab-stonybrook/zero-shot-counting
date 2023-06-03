@@ -1,28 +1,13 @@
 # [CVPR 2023] Zero-Shot Object Counting
 
 
-## Counting without human annotated exemplars
+ 
 
 <div style="display: flex;">
-  <div style="flex: 0 0 300px;">
-    <img src="./figures/FS.png" alt="First Image" style="width: 100%;">
-  </div>
-  <div style="flex: 0 0 100px;"></div>
-  <div style="flex: 0 0 300px;">
-    <img src="./figures/ZSC.gif" alt="Second Image" style="width: 100%;">
-  </div>
-</div>
-<div style="display: flex;">
-  <div style="flex: 0 0 300px;">
-    <p>(a) Few-shot Counting </p>
-  </div>
-  <div style="flex: 0 0 100px;"></div>
-  <div style="flex: 0 0 300px;">
-    <p>(a) Zero-shot Counting (ours) </p>
-  </div>
+  <img src="./figures/ZSC.gif" alt="Second Image" style="width: 60%;"> 
 </div>
 
-
+Counting without human annotated exemplars.
 
 ## Overview
 This repository contains the implementation of the paper [**Zero-Shot Object Counting**](https://arxiv.org/abs/2303.02001). 
