@@ -146,10 +146,6 @@ def extract_corr_map(args):
           ori_features1 = model.backbone(img)
           ori_features = model.input_proj(ori_features1)
           ###################
-          #vae_feature = get_vae_embedding(vae_feats[idx]).cuda().float().view(-1, 1024)
-          #vae_feature = model.EPF_extractor.patch2query(vae_feature).view(1, vae_feature.shape[0], -1).permute(1, 0, 2).contiguous()
-          #vae_feature = torch.from_numpy(np.array(vae_feats[idx]).mean(0)).cuda().float().view(-1, 1024)
-          #vae_feature = model.EPF_extractor.patch2query(vae_feature).view(1, vae_feature.shape[0], -1).permute(1, 0, 2).contiguous()
           ###################
           img = F.interpolate(img, [384,384])
           features = model.backbone(img)
@@ -158,25 +154,10 @@ def extract_corr_map(args):
           cls = cls_dict[k[0]]
           label = cls_list.index(cls)
           patch_feature = model.backbone(patches) # obtain feature maps for exemplar patches
-          #tmp_feature = ori_features1.flatten(2).permute(0, 2, 1)   
-          #tmp_feature2 = torch.from_numpy(vae_feats[label].mean(0)).unsqueeze(0).cuda()
-          #map_feature = torch.matmul(tmp_feature[0], tmp_feature2.permute(1,0))
-          #save_feats = map_feature[:,0].reshape((ori_features.shape[-2:]))
-          #save_image(save_feats.unsqueeze(0), 'img.png', normalize=True)
-          #map_feature = torch.cdist(tmp_feature[0], tmp_feature2)[:,0]
           vae_feature = vae_feats[label]
           #vae_sel_idx = select_feats_vae_imgnet((vae_feature.mean(0)).to(device), patches, model_imgnet)
           vae_sel_idx = select_feats_vae_imgnet(torch.from_numpy(vae_feature.mean(0)).to(device), patches, model_imgnet)
-          #if '6080' in k[0]:
-          #    vae_sel_idx = range(48, 58)
-          #vae_sel_idx = range(450)
           patch_feature2 = model.EPF_extractor(patch_feature[vae_sel_idx], scale_embedding[:, vae_sel_idx])
-          if False:
-            patch_feature2 = vae_feature
-            patch_feature2 = model.EPF_extractor.patch2query(patch_feature2) \
-                  .view(1, vae_feature.shape[0], -1) \
-                  .permute(1, 0, 2) \
-                  .contiguous()
           bs, batch_num_patches = scale_embedding.shape
           refined_feature, patch_feature2 = model.refiner(ori_features, patch_feature2)
           counting_feature, corr_map = model.matcher(refined_feature, patch_feature2)
@@ -187,13 +168,9 @@ def extract_corr_map(args):
               counting_feature, corr_map = model.matcher(features, patch_feature2[[m_idx]])
               feats_all.append(counting_feature)
             counting_feature = torch.stack(feats_all).squeeze(1)
-            #density_map = model.counter(counting_feature)
-            #sel_idx = density_map.sum([1,2,3]).argmin()
             scores = regressor(counting_feature)
             sel_idx = scores.argsort(0)[:3]
             patch_feature3 = patch_feature2[sel_idx[:,0]]
-            #patch_feature3 = patch_feature2[sel_idx].unsqueeze(0)
-            #pdb.set_trace()
             counting_feature, corr_map = model.matcher(refined_feature, patch_feature3)
           density_map = model.counter(counting_feature)
           error = torch.abs(density_map.sum() - gtcount).item()
