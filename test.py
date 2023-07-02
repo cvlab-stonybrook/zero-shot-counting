@@ -114,10 +114,7 @@ def extract_corr_map(args):
     cls_dict = get_image_classes('./FSC147_384_V2/ImageClasses_FSC147.txt')
     cls_list = np.array(list(cls_dict.values()))
     cls_list = sorted(np.unique(cls_list))
-    vae_feats = np.load(os.path.join(output_dir, 'fsc_vae_feats_tmp.npy'), allow_pickle=True).item()
-    #vae_feats = vae_file['feats']
-    #vae_labels = vae_file['labels']
-    #vae_feats = np.load('./mean_proto_test.npy', allow_pickle=True).item()
+    vae_feats = np.load(os.path.join(output_dir, 'fsc_vae_feats.npy'), allow_pickle=True).item()
     checkpoint = torch.load(cfg.VAL.resume, map_location='cpu')
     model_imgnet = copy.deepcopy(model)
     model.load_state_dict(checkpoint['model'])
