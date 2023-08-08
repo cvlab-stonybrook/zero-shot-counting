@@ -2,10 +2,11 @@
 
 
  
-
+<!---
 <div style="display: flex;">
   <img src="./figures/ZSC.gif" alt="Second Image" style="width: 60%;"> 
 </div>
+-->
 
 Counting without human annotated exemplars.
 
