@@ -129,7 +129,6 @@ def extract_corr_map(args):
     #  annos = pickle.load(pickle_file)
     with open('FSC147_384_V2/annotation_FSC147_384.json', 'rb') as pickle_file:
       annos = json.load(pickle_file)
-    imgnet_feats = np.load('imgnet_feats_clip.npy', allow_pickle=True).item()
     count_item = 0
     tmp_list = []
     train_list = [name.split('\t') for name in open('FSC147_384_V2/test.txt').read().splitlines()]
