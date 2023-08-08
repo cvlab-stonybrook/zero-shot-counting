@@ -114,7 +114,7 @@ def extract_corr_map(args):
     cls_dict = get_image_classes('./FSC147_384_V2/ImageClasses_FSC147.txt')
     cls_list = np.array(list(cls_dict.values()))
     cls_list = sorted(np.unique(cls_list))
-    vae_feats = np.load(os.path.join(output_dir, 'fsc_vae_feats.npy'), allow_pickle=True).item()
+    vae_feats = np.load(os.path.join(output_dir, 'fsc_vae_feats_best.npy'), allow_pickle=True)
     checkpoint = torch.load(cfg.VAL.resume, map_location='cpu')
     model_imgnet = copy.deepcopy(model)
     model.load_state_dict(checkpoint['model'])
@@ -152,7 +152,7 @@ def extract_corr_map(args):
           patch_feature = model.backbone(patches) # obtain feature maps for exemplar patches
           vae_feature = vae_feats[label]
           #vae_sel_idx = select_feats_vae_imgnet((vae_feature.mean(0)).to(device), patches, model_imgnet)
-          vae_sel_idx = select_feats_vae_imgnet(torch.from_numpy(vae_feature.mean(0)).to(device), patches, model_imgnet)
+          vae_sel_idx = select_feats_vae_imgnet(torch.from_numpy(vae_feature).to(device), patches, model_imgnet)
           patch_feature2 = model.EPF_extractor(patch_feature[vae_sel_idx], scale_embedding[:, vae_sel_idx])
           bs, batch_num_patches = scale_embedding.shape
           refined_feature, patch_feature2 = model.refiner(ori_features, patch_feature2)
