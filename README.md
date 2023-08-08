@@ -17,13 +17,6 @@ We propose zero-shot object counting (ZSC), a new setting where only the class n
  <img src="./figures/pipeline.png" alt="Pipeline" style="width: 70%;">
 
 
-## Installation
-
-
-## Training
-
-
-## Testing
 
 ## Citation
 Please cite our CVPR 2022 paper:
