@@ -1,0 +1,70 @@
+DATASET:
+  downsampling_rate: 1
+  exemplar_number: 3
+  exemplar_size: (128, 128)
+  list_test: ./FSC147_384_V2/test.txt
+  list_train: ./FSC147_384_V2/train.txt
+  list_val: ./FSC147_384_V2/val.txt
+  max_size: 2048
+  min_size: 384
+  name: FSC147
+  padding_constant: 8
+  preload: True
+  random_flip: True
+  scaling: 1
+DIR:
+  dataset: ./FSC147_384_V2
+  exp: bmnet+_ep3_epoch300_no_refiner
+  output_dir: ./checkpoints/bmnet+_ep3_epoch300_no_refiner
+  result: ./results
+  snapshot: ./checkpoints
+MODEL:
+  backbone: resnet50
+  backbone_layer: layer3
+  counter: density_x16
+  counter_dim: 257
+  dilation: False
+  dynamic_proj_dim: 128
+  ep_scale_embedding: False
+  ep_scale_number: 20
+  epf_extractor: direct_pooling
+  fix_bn: True
+  hidden_dim: 256
+  matcher: inner_product_matcher
+  matcher_layers: 1
+  matcher_proj_dim: 256
+  pretrain: True
+  refiner: none
+  refiner_layers: 1
+  refiner_proj_dim: 32
+  repeat_times: 1
+  use_bias: True
+TRAIN:
+  batch_size: 8
+  clip_max_norm: 0.1
+  contrast_loss: info_nce
+  contrast_weight: 5e-06
+  counting_loss: l2loss
+  device: cuda:0
+  disp_iter: 20
+  epoch_iters: 5000
+  epochs: 300
+  exemplar_number: 3
+  loss_reduction: mean
+  lr: 1e-05
+  lr_backbone: 1e-05
+  lr_drop: 300
+  momentum: 0.95
+  num_workers: 1
+  optimizer: AdamW
+  resume: ./checkpoints/bmnet+_ep3_epoch300_no_refiner/model_ckpt.pth
+  seed: 903
+  start_epoch: 0
+  weight_decay: 0.0005
+VAL:
+  batch_size: 1
+  disp_iter: 10
+  evaluate_only: False
+  resume: ./checkpoints/bmnet+_ep3_epoch300_no_refiner/model_best.pth
+  val_epoch: 10
+  visualization: False
