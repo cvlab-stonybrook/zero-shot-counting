@@ -32,4 +32,4 @@ Please cite our CVPR 2022 paper:
 ```
 
 ## Acknowledgment
-This research was partially supported by NSF grants IIS-2123920 and IIS-2212046 and the NASA Biodiversity program (Award 80NSSC21K1027).
+This repo heavily based on [BMNet]([https://link-url-here.org](https://github.com/flyinglynx/Bilinear-Matching-Network)https://github.com/flyinglynx/Bilinear-Matching-Network). Thanks for the great work.
