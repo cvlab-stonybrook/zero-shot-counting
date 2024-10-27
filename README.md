@@ -16,9 +16,12 @@ We propose zero-shot object counting (ZSC), a new setting where only the class n
 
  <img src="./figures/pipeline.png" alt="Pipeline" style="width: 70%;">
 
+## Links:
+Please follow this link to download: "regressor_model/regressor.pth", box_rpn_all.npy, and box_rpn_sel_all.npy:
 
+https://drive.google.com/drive/folders/1FjkaK2EzcOdiH_N9WkGnh5c3G9xj9PmE?usp=drive_link
 
-## Citation
+## Bib
 Please cite our CVPR 2022 paper:
 ```
 @InProceedings{Xu_2023_CVPR,
