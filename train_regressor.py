@@ -62,7 +62,7 @@ def train_err(args):
     optimizer = torch.optim.AdamW(regressor.parameters(), lr=1e-5, weight_decay=5e-4)
 
     # define dataset
-    patch_dataset = PatchDataset('patch_feats_rpn')
+    patch_dataset = PatchDataset('patch_feats')
     patch_loader = torch.utils.data.DataLoader(patch_dataset, shuffle=True, pin_memory=True, drop_last=False, batch_size=1)
     loss_avg = 0
     for ep in range(5):
