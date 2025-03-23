@@ -46,7 +46,8 @@ class PatchDataset(DatasetFolder):
         tmp_feats = np.repeat(feats[np.newaxis,:,:,:], corr_feats.shape[0], axis=0)
         concat_feats = np.concatenate((tmp_feats, corr_feats[:,np.newaxis,:,:]), 1)
         return torch.from_numpy(concat_feats), torch.from_numpy(errs)
-      def train_err(args):
+
+def train_err(args):
     print(args)
     device = torch.device(cfg.TRAIN.device)
     # fix the seed for reproducibility
@@ -76,7 +77,6 @@ class PatchDataset(DatasetFolder):
         if idx % 200 == 0:
           print('Ep: %d, Idx: %d, Loss: %.4f'%(ep, idx, (loss_avg/200)))
           loss_avg = 0
-     
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
@@ -93,6 +93,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     cfg.merge_from_file(args.cfg)
+    #cfg.merge_from_list(args.opts)
 
     cfg.DIR.output_dir = os.path.join(cfg.DIR.snapshot, cfg.DIR.exp)
     if not os.path.exists(cfg.DIR.output_dir):
